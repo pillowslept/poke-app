@@ -2,7 +2,7 @@
   <div>
     <div class="md-layout">
       <div class="md-layout-item" v-bind:key="pokemon.id" v-for="pokemon in pokemons">
-        <PokeCard v-bind:pokemon="pokemon" />
+        <PokeCard v-bind:pokemon="pokemon" v-on:select="select" />
       </div>
     </div>
     <md-progress-bar v-if="loading" md-mode="query"></md-progress-bar>
@@ -15,17 +15,21 @@
       </md-button>
       <span class="counter">{{ pokemons.length}} from {{ count }}</span>
     </div>
+    <PokeDialog v-bind:pokemon="selected" v-bind:showDialog="showDialog" v-on:close="closeModal" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import PokeCard from '@/components/PokeCard';
+import PokeDialog from '@/components/PokeDialog';
 
 export default {
   name: 'PokeList',
   data() {
     return {
+      showDialog: false,
+      selected: {},
       loading: false,
       count: 0,
       pokemons: [],
@@ -49,10 +53,19 @@ export default {
           this.count = data.count;
           this.loading = false;
         }).catch(() => this.loading = false);
+    },
+    select(pokemon) {
+      this.selected = pokemon;
+      this.showDialog = true;
+    },
+    closeModal() {
+      this.showDialog = false;
+      this.selected = {};
     }
   },
   components: {
     PokeCard,
+    PokeDialog,
   },
 };
 </script>

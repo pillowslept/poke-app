@@ -2,7 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import {
-  MdButton, MdContent, MdDivider, MdApp, MdToolbar, MdDrawer, MdList, MdIcon, MdCard, MdTooltip, MdProgress
+  MdButton, MdContent, MdDivider, MdApp, MdToolbar, MdDialog,
+  MdDrawer, MdList, MdIcon, MdCard, MdTooltip, MdProgress
 } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
@@ -20,6 +21,7 @@ Vue.use(MdContent);
 Vue.use(MdList);
 Vue.use(MdCard);
 Vue.use(MdDivider);
+Vue.use(MdDialog);
 
 new Vue({
   router,

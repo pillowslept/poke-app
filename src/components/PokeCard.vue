@@ -1,33 +1,37 @@
 <template>
-  <md-card class="md-transparent" md-with-hover>
+  <md-card class="md-transparent" md-with-hover @click.native="select">
     <md-card-header>
       <md-card-header-text>
         <div class="md-title">{{ pokemon.name }}</div>
         <div class="md-subhead">{{ pokemon.type }}</div>
       </md-card-header-text>
       <md-card-media>
-        <img v-if="url"
-          v-bind:src="url"
-          alt="Avatar">
+        <PokeImage v-bind:pokemon="pokemon" />
       </md-card-media>
     </md-card-header>
   </md-card>
 </template>
 
 <script>
+import PokeImage from '@/components/PokeImage';
+
 export default {
   name: 'PokeCard',
+  props: {
+    pokemon: Object
+  },
   data() {
     return {
       url: '',
     };
   },
-  mounted() {
-    const id = this.pokemon.url.split('/').reverse()[1];
-    this.url = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
+  methods: {
+    select() {
+      this.$emit('select', this.pokemon);
+    }
   },
-  props: {
-    pokemon: Object
-  },
+  components: {
+    PokeImage,
+  }
 };
 </script>
