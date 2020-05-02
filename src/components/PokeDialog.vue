@@ -4,13 +4,15 @@
       v-bind:md-close-on-esc="false"
       :md-active.sync="showDialog" @md-opened="onOpen" @md-clicked-outside="close">
       <md-dialog-title>{{ pokemon.name }}</md-dialog-title>
-      <md-progress-bar v-if="loading" md-mode="query"></md-progress-bar>
       <md-dialog-content>
         <div class="fields-container">
           <div class="image">
             <PokeImage v-bind:pokemon="pokemon" />
           </div>
-          <div class="information">
+          <div v-if="loading">
+            <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+          </div>
+          <div class="information" v-show="!loading">
             <span><b>Weight: </b>{{ detail.weight }}</span>
             <span><b>Base experience: </b>{{ detail.base_experience }}</span>
             <div>
